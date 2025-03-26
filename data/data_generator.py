@@ -111,7 +111,7 @@ class DataGenerator(abc.ABC):
           logs_dict: Extra information.
         """
 
-    def sample(self) -> tuple[Sequences, Mapping[str, Any]]:
+    def sample(self, with_markov=False) -> tuple[Sequences, Mapping[str, Any]]:
         """Samples a batch with randomly sampled true parameters.
 
         Returns:
@@ -120,7 +120,9 @@ class DataGenerator(abc.ABC):
           log_dict: Auxiliary logs, like the categorical probabilities along the
             sequence.
         """
-        params = self.sample_params(sample_size=self._batch_size)
+        params = self.sample_params(
+            sample_size=self._batch_size, with_markov=with_markov
+        )
         sequences, categorical_probs, extra = self.sample_from_params(params=params)
         log_dict = {
             "categorical_probs": categorical_probs,

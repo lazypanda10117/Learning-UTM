@@ -15,7 +15,9 @@
 
 """Trains a neural model on some data generated from the data/ folder."""
 
+from cProfile import label
 import functools
+from turtle import color
 from typing import Any
 
 from absl import app
@@ -33,9 +35,22 @@ from data import utm_data_generator as utm_dg_lib
 from data import utms as utms_lib
 from models import transformer
 
+import matplotlib.pyplot as plt
+
 from data import (
     chomsky_data_generator as chomsky_sampler_lib,
 )
+
+
+def make_config_generator(
+    vocab_size: int,
+):
+    return transformer.TransformerConfig(
+        vocab_size=vocab_size,
+        num_layers=6,
+        embedding_dim=256,
+        num_heads=4,
+    )
 
 
 def _make_loss_fn(model: hk.Transformed) -> Any:
@@ -126,7 +141,9 @@ def train_transformer_decoder(
     log_every: int,
     batch_size: int = 128,
     use_tqdm: bool = True,
-) -> tuple[hk.Params, float]:
+    with_markov: bool = False,
+    eval_data_generator: dg_lib.DataGenerator = None,
+) -> tuple[hk.Params, float, list[float], list[float], list[float]]:
     """Trains a neural network on some synthetic data.
 
     We train a decoder-only transformer on batches, minimizing the log-loss
@@ -143,7 +160,8 @@ def train_transformer_decoder(
     Returns:
       The final loss, and final parameters.
     """
-    config = transformer.TransformerConfig(vocab_size=data_generator.feature_size)
+    print("Vocab size:", data_generator.feature_size)
+    config = make_config_generator(data_generator.feature_size)
     model = hk.transform(
         functools.partial(transformer.transformer_decoder, config=config)
     )
@@ -166,8 +184,11 @@ def train_transformer_decoder(
     logging.info("Initialization done, starting training...")
     last_loss = 0.0
     default_mask = lambda x: np.ones(x.shape[:2], dtype=bool)
+    eval_losses = []
+    eval_accs = []
+    eval_final_accs = []
     for step in tqdm.trange(training_steps, disable=not use_tqdm):
-        batch, log_dict = data_generator.sample()
+        batch, log_dict = data_generator.sample(with_markov=True)
         # Transform one-hots to integer tokens.
         batch = np.argmax(batch, axis=-1)
         if "loss_mask" in log_dict:
@@ -190,30 +211,32 @@ def train_transformer_decoder(
                 logs["loss"],
                 logs["grad_norm_unclipped"],
             )
-        last_loss = logs["loss"]
+        if step % 100 == 0:
+            last_loss = logs["loss"]
+            eval_loss, eval_acc, eval_final_acc = evaluate_transformer_decoder(
+                eval_data_generator, params, data_generator
+            )
+            eval_losses.append(eval_loss)
+            eval_accs.append(eval_acc)
+            eval_final_accs.append(eval_final_acc)
 
-    return params, last_loss
+    return params, last_loss, eval_losses, eval_accs, eval_final_accs
 
 
 def evaluate_transformer_decoder(
     data_generator: dg_lib.DataGenerator,
     params: hk.Params,
     training_data_generator: dg_lib.DataGenerator = None,
-) -> float:
+    num_batches: int = 10,
+) -> tuple[float, float, float]:
     """Evaluates a neural network on some synthetic data.
 
     We evaluate a decoder-only transformer on batches, minimizing the log-loss
     objective. The exact architecture can be modified using the TransformerConfig
     object (defined in models/transformer.py)
     """
-    print("Evaluate Vocab size:", data_generator.feature_size)
 
-    config = transformer.TransformerConfig(
-        vocab_size=training_data_generator.feature_size,
-        num_layers=6,
-        embedding_dim=256,
-        num_heads=4,
-    )
+    config = make_config_generator(training_data_generator.feature_size)
     model: hk.Transformed = hk.transform(
         functools.partial(transformer.transformer_decoder, config=config)
     )
@@ -225,11 +248,12 @@ def evaluate_transformer_decoder(
     rng = jax.random.PRNGKey(0)
     regret = 0.0
     default_mask = lambda x: np.zeros(x.shape[:2], dtype=bool)
+    total_accuracy = 0.0
+    total_final_accuracy = 0.0
 
-    for i in range(10):
+    for i in range(num_batches):
         batch, log_dict = data_generator.sample()
         batch = np.argmax(batch, axis=-1)
-        print(batch[0])
         if "input_locations" in log_dict:
             input_mask = log_dict["input_locations"]
         else:
@@ -243,20 +267,28 @@ def evaluate_transformer_decoder(
             conditionals, batch[..., None], axis=-1
         )[..., 0]
         accuracy = jnp.exp(true_conditionals)
+        true_accuracies = accuracy[~input_mask]
         true_conditionals = jnp.where(input_mask, 0.0, true_conditionals)
-        print(jnp.where(input_mask, 0.0, accuracy)[0])
+        avg_accuracy = jnp.mean(true_accuracies)
+        final_accuracy = jnp.mean(true_accuracies[:, -1])
+        total_accuracy += avg_accuracy
 
         marginals = jnp.sum(true_conditionals, axis=1)  # Shape (B,).
+        total_final_accuracy += final_accuracy
         regret += -jnp.mean(marginals)
 
-    regret /= 10
-    print(regret)
+    regret /= num_batches
+    total_accuracy /= num_batches
+    total_final_accuracy /= num_batches
 
-    return regret
+    return regret, total_accuracy, total_final_accuracy
 
 
 def main(_) -> None:
     """Trains a model and save the parameters to a file."""
+
+    TRAINING_STEPS = 200
+
     rng = np.random.default_rng(seed=1)
     program_sampler = utms_lib.FastSampler(rng=rng)
     utm = utms_lib.BrainPhoqueUTM(program_sampler)
@@ -271,16 +303,6 @@ def main(_) -> None:
         maximum_program_length=100,
     )
 
-    params, loss = train_transformer_decoder(
-        data_generator=data_generator,
-        training_steps=1000,
-        log_every=10,
-    )
-    logging.info("Final loss: %f", loss)
-
-    np.savez("params.npz", **params)
-    logging.info("Parameters saved in file params.npz")
-
     chomsky_generator = chomsky_sampler_lib.ChomskyDataGenerator(
         task_str="even_pairs",
         max_input_length=20,
@@ -289,6 +311,23 @@ def main(_) -> None:
         seq_length=256,
         rng=rng,
     )
+
+    params, loss, eval_losses, eval_accs, eval_final_accs = train_transformer_decoder(
+        data_generator=data_generator,
+        training_steps=TRAINING_STEPS,
+        log_every=10,
+        with_markov=True,
+        eval_data_generator=chomsky_generator,
+    )
+    logging.info("Final loss: %f", loss)
+
+    np.savez("params.npz", **params)
+    logging.info("Parameters saved in file params.npz")
+
+    plt.plot(eval_accs, label="avg", color="red")
+    plt.plot(eval_final_accs, label="final", color="blue")
+    plt.legend()
+    plt.show()
 
     evaluate_transformer_decoder(
         chomsky_generator, params, training_data_generator=data_generator

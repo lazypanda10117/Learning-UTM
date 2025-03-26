@@ -256,7 +256,7 @@ class ChomskyDataGenerator(dg_lib.DataGenerator):
         )
         return np.concatenate([input_probs, output_probs], axis=1)
 
-    def sample_params(self, sample_size: int) -> dg_lib.Params:
+    def sample_params(self, sample_size: int, with_markov=False) -> dg_lib.Params:
         # There are no params yet.
         return None
 
