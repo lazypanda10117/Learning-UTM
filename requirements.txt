@@ -1,0 +1,8 @@
+absl-py
+dm-haiku
+dm-tree
+jax
+jaxtyping
+numpy
+tqdm
+dm-haiku
