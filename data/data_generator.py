@@ -72,6 +72,7 @@ class DataGenerator(abc.ABC):
   def sample_params(
       self,
       sample_size: int,
+      with_markov: bool = False,
   ) -> Params:
     """Returns a set of parameters.
 

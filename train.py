@@ -33,6 +33,7 @@ from neural_networks_solomonoff_induction.data import utm_data_generator as utm_
 from neural_networks_solomonoff_induction.data import utms as utms_lib
 from neural_networks_solomonoff_induction.models import transformer
 
+
 def _make_loss_fn(model: hk.Transformed) -> Any:
   """Returns the loss function for update_parameters."""
 
@@ -201,7 +202,7 @@ def main(_) -> None:
       rng=rng,
       utm=utm,
       memory_size=10,
-      maximum_steps=100,/
+      maximum_steps=100,
       tokenizer=utm_dg_lib.Tokenizer.ASCII,
       maximum_program_length=100,
   )

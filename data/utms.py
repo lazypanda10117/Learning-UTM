@@ -28,7 +28,7 @@ from typing import Any
 
 import numpy as np
 
-from neural_networks_solomonoff_induction.data.markov_process import markov_process
+from .markov_process import markov_process
 
 # Result type for run_program.
 RunResult = Mapping[str, Any]
@@ -90,6 +90,7 @@ class UniversalTuringMachine(abc.ABC):
       self,
       length: int,
       rng: np.random.Generator,
+      with_markov: bool = False,
   ) -> str:
     """Returns a program of a given length, with uniformly sampled tokens.
 
@@ -98,10 +99,10 @@ class UniversalTuringMachine(abc.ABC):
       rng: The numpy random generator to use, or the integer seed. Allows to
         reuse the same generator for multiple usage.
     """
-    program = ''.join(rng.choice(self.program_tokens, length))
-    print("Sampling program: ", program)
-    # program = self.sample_program_with_markov_process(length, markov_process, rng)
-    # print("Sampling markov program: ", program)
+    if not with_markov:
+      program = ''.join(rng.choice(self.program_tokens, length))
+    else:
+      program = self.sample_program_with_markov_process(length, markov_process, rng)
     return program
 
 
@@ -112,7 +113,6 @@ class IncorrectProgramError(Exception):
     * Some tokens are not part of `utm.program_tokens`.
     * Bad indentation (in Python for instance).
   """
-
 
 class ProgramSampler(abc.ABC):
   """Abstract base class for sampling programs within a UTM."""

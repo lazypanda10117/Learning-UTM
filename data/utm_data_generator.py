@@ -23,8 +23,8 @@ import jax.nn as jnn
 import jax.numpy as jnp
 import numpy as np
 
-from neural_networks_solomonoff_induction.data import data_generator as dg_lib
-from neural_networks_solomonoff_induction.data import utms
+from . import data_generator as dg_lib
+from . import utms
 
 
 class Tokenizer(enum.IntEnum):
@@ -92,7 +92,7 @@ class UTMDataGenerator(dg_lib.DataGenerator):
       case Tokenizer.ASCII:
         return 128
 
-  def sample_params(self, sample_size: int) -> Sequence[str]:
+  def sample_params(self, sample_size: int, with_markov: bool = False) -> Sequence[str]:
     """Samples parameters used to generate the sequences. See base class.
 
     Args:
@@ -105,7 +105,7 @@ class UTMDataGenerator(dg_lib.DataGenerator):
     programs = []
     for _ in range(sample_size):
       programs.append(
-          self._utm.sample_program(self._maximum_program_length, self._rng)
+          self._utm.sample_program(self._maximum_program_length, self._rng, with_markov=with_markov)
       )
 
     return programs
@@ -136,6 +136,7 @@ class UTMDataGenerator(dg_lib.DataGenerator):
     outputs = []
     results = []
     masks = []
+    short_programs = []
     for program in params:
       result = self._utm.run_program(
           program=program,
@@ -143,8 +144,12 @@ class UTMDataGenerator(dg_lib.DataGenerator):
           maximum_steps=self._maximum_steps,
           max_output_length=self._seq_length,
       )
+      if result['short_program'] is not None:
+        short_programs.append(result['short_program'])
+      
       output = result['output']
       # We keep only the sequences that are long enough.
+      # [Question] - It doesnt seem like so.
       # result['output_length'] = len(result['output']) unless some padding
       # is used in the UTM.
       mask = np.zeros(self._seq_length, dtype=np.uint8)
@@ -176,5 +181,5 @@ class UTMDataGenerator(dg_lib.DataGenerator):
     # delta, meaning there is only one possible next token. They are equal to
     # the one hot output itself.
     categorical_probs = jnp.copy(output)
-    log_dict = {'results': results, 'loss_mask': loss_mask}
+    log_dict = {'results': results, 'loss_mask': loss_mask, 'short_programs': short_programs}
     return output, categorical_probs, log_dict
