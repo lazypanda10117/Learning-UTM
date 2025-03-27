@@ -31,26 +31,19 @@ import tqdm
 import tree
 
 from data import data_generator as dg_lib
-from data import utm_data_generator as utm_dg_lib
-from data import utms as utms_lib
-from models import transformer
+import pandas as pd
+from helpers import (
+    evaluate_transformer_decoder,
+    init_params,
+    make_chomsky_generator,
+    make_model,
+    utm_data_generator,
+)
 
 import matplotlib.pyplot as plt
 
-from data import (
-    chomsky_data_generator as chomsky_sampler_lib,
-)
-
-
-def make_config_generator(
-    vocab_size: int,
-):
-    return transformer.TransformerConfig(
-        vocab_size=vocab_size,
-        num_layers=6,
-        embedding_dim=256,
-        num_heads=4,
-    )
+USE_MARKOV = False
+SUFFIX = "_markov" if USE_MARKOV else "_original"
 
 
 def _make_loss_fn(model: hk.Transformed) -> Any:
@@ -161,17 +154,9 @@ def train_transformer_decoder(
       The final loss, and final parameters.
     """
     print("Vocab size:", data_generator.feature_size)
-    config = make_config_generator(data_generator.feature_size)
-    model = hk.transform(
-        functools.partial(transformer.transformer_decoder, config=config)
-    )
+    model = make_model(data_generator)
 
-    # Initialize parameters.
-    dummy_batch, _ = data_generator.sample_dummy(batch_size)
-    # Transform one-hots to integer tokens.
-    dummy_batch = np.argmax(dummy_batch, axis=-1)
-    rng = jax.random.PRNGKey(0)
-    params = model.init(rng, dummy_batch)
+    params = init_params(model, data_generator, batch_size)
 
     # Make gradient function.
     loss_fn = _make_loss_fn(model)
@@ -223,106 +208,43 @@ def train_transformer_decoder(
     return params, last_loss, eval_losses, eval_accs, eval_final_accs
 
 
-def evaluate_transformer_decoder(
-    data_generator: dg_lib.DataGenerator,
-    params: hk.Params,
-    training_data_generator: dg_lib.DataGenerator = None,
-    num_batches: int = 10,
-) -> tuple[float, float, float]:
-    """Evaluates a neural network on some synthetic data.
-
-    We evaluate a decoder-only transformer on batches, minimizing the log-loss
-    objective. The exact architecture can be modified using the TransformerConfig
-    object (defined in models/transformer.py)
-    """
-
-    config = make_config_generator(training_data_generator.feature_size)
-    model: hk.Transformed = hk.transform(
-        functools.partial(transformer.transformer_decoder, config=config)
-    )
-
-    # Initialize parameters.
-    dummy_batch, _ = data_generator.sample_dummy(data_generator.batch_size)
-    # Transform one-hots to integer tokens.
-    dummy_batch = np.argmax(dummy_batch, axis=-1)
-    rng = jax.random.PRNGKey(0)
-    regret = 0.0
-    default_mask = lambda x: np.zeros(x.shape[:2], dtype=bool)
-    total_accuracy = 0.0
-    total_final_accuracy = 0.0
-
-    for i in range(num_batches):
-        batch, log_dict = data_generator.sample()
-        batch = np.argmax(batch, axis=-1)
-        if "input_locations" in log_dict:
-            input_mask = log_dict["input_locations"]
-        else:
-            input_mask = default_mask(batch)
-        conditionals = model.apply(
-            params=params,
-            targets=batch,
-            rng=None,
-        )
-        true_conditionals = jnp.take_along_axis(
-            conditionals, batch[..., None], axis=-1
-        )[..., 0]
-        accuracy = jnp.exp(true_conditionals)
-        true_accuracies = accuracy[~input_mask]
-        true_conditionals = jnp.where(input_mask, 0.0, true_conditionals)
-        avg_accuracy = jnp.mean(true_accuracies)
-        final_accuracy = jnp.mean(true_accuracies[:, -1])
-        total_accuracy += avg_accuracy
-
-        marginals = jnp.sum(true_conditionals, axis=1)  # Shape (B,).
-        total_final_accuracy += final_accuracy
-        regret += -jnp.mean(marginals)
-
-    regret /= num_batches
-    total_accuracy /= num_batches
-    total_final_accuracy /= num_batches
-
-    return regret, total_accuracy, total_final_accuracy
-
-
 def main(_) -> None:
     """Trains a model and save the parameters to a file."""
 
-    TRAINING_STEPS = 200
+    TRAINING_STEPS = 10
 
     rng = np.random.default_rng(seed=1)
-    program_sampler = utms_lib.FastSampler(rng=rng)
-    utm = utms_lib.BrainPhoqueUTM(program_sampler)
-    data_generator = utm_dg_lib.UTMDataGenerator(
-        batch_size=32,
-        seq_length=256,
-        rng=rng,
-        utm=utm,
-        memory_size=10,
-        maximum_steps=200,
-        tokenizer=utm_dg_lib.Tokenizer.ASCII,
-        maximum_program_length=100,
-    )
+    data_generator = utm_data_generator(rng)
 
-    chomsky_generator = chomsky_sampler_lib.ChomskyDataGenerator(
-        task_str="even_pairs",
-        max_input_length=20,
-        use_delimiters=True,
-        batch_size=32,
-        seq_length=256,
-        rng=rng,
-    )
+    chomsky_generator = make_chomsky_generator(rng)
 
     params, loss, eval_losses, eval_accs, eval_final_accs = train_transformer_decoder(
         data_generator=data_generator,
         training_steps=TRAINING_STEPS,
         log_every=10,
-        with_markov=True,
+        with_markov=USE_MARKOV,
         eval_data_generator=chomsky_generator,
     )
     logging.info("Final loss: %f", loss)
 
-    np.savez("params.npz", **params)
+    flat_params, tree_def = jax.tree_util.tree_flatten(params)
+    np.savez(f"params{SUFFIX}.npz", *flat_params, tree_def=tree_def)
+
     logging.info("Parameters saved in file params.npz")
+
+    # Create a pandas DataFrame from the evaluation metrics
+    eval_data = {
+        "eval_losses": eval_losses,
+        "eval_accs": eval_accs,
+        "eval_final_accs": eval_final_accs,
+    }
+    eval_df = pd.DataFrame(eval_data)
+
+    # Save the DataFrame to a CSV file
+
+    eval_df.to_csv(f"evaluation_metrics{SUFFIX}.csv", index=False)
+
+    logging.info("Evaluation metrics saved to evaluation_metrics.csv")
 
     plt.plot(eval_accs, label="avg", color="red")
     plt.plot(eval_final_accs, label="final", color="blue")
@@ -332,19 +254,6 @@ def main(_) -> None:
     evaluate_transformer_decoder(
         chomsky_generator, params, training_data_generator=data_generator
     )
-
-    # for _ in range(10):
-    #     print("batch")
-    #     print()
-    #     batch, _ = chomsky_generator.sample()
-    #     print(batch)
-    #     print()
-
-    # chomsky_params, chomsky_loss = train_transformer_decoder(
-    #     data_generator=chomsky_generator,
-    #     training_steps=1000,
-    #     log_every=10,
-    # )
 
 
 if __name__ == "__main__":

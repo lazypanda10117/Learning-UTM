@@ -2,6 +2,12 @@ import numpy as np
 import haiku as hk
 import jax
 import jax.numpy as jnp
+from helpers import (
+    evaluate_transformer_decoder,
+    make_chomsky_generator,
+    make_model,
+    utm_data_generator,
+)
 from models import transformer
 from data import utm_data_generator as utm_dg_lib
 from data import utms as utms_lib
@@ -20,7 +26,7 @@ def make_config_generator(
 
 
 def load_model_params(
-    data_generator, params_path: str, vocab_size: int
+    data_generator, params_path: str, vocab_size: int, batch_size: int = 128
 ) -> tuple[hk.Transformed, hk.Params]:
     """Loads saved model parameters and returns the initialized model and params.
 
@@ -33,56 +39,39 @@ def load_model_params(
         and params are the loaded parameters
     """
     # Create the same model configuration as used in training
-    config = make_config_generator(vocab_size)
-    model: hk.Transformed = hk.transform(
-        functools.partial(transformer.transformer_decoder, config=config)
-    )
+    model = make_model(data_generator)
 
     # Load the saved parameters
-    params = np.load(params_path, allow_pickle=True)
-    print(params.items())
+    loaded = np.load("params.npz", allow_pickle=True)
+    tree_def = loaded["tree_def"].item()  # Get PyTreeDef
+    flat_params = [loaded[f"arr_{i}"] for i in range(len(loaded.files) - 1)]
+    loaded_params = jax.tree_util.tree_unflatten(tree_def, flat_params)
 
     # Initialize the model with a dummy batch to get the parameter structure
-    dummy_batch, _ = data_generator.sample_dummy(
-        data_generator.batch_size
-    )  # Minimal dummy input
+    dummy_batch, _ = data_generator.sample_dummy(128)  # Minimal dummy input
+    dummy_batch = np.argmax(dummy_batch, axis=-1)
+
     rng = jax.random.PRNGKey(0)
-    print("got here")
     model.init(rng, dummy_batch)
-    print("but not here")
 
-    # Convert numpy arrays to JAX arrays and ensure parameter structure matches
-    params = jax.tree_map(jnp.array, params)
-
-    return model, params
+    return model, loaded_params
 
 
 def main():
     # Example usage
     rng = np.random.default_rng(seed=1)
-    program_sampler = utms_lib.FastSampler(rng=rng)
-    utm = utms_lib.BrainPhoqueUTM(program_sampler)
-    data_generator = utm_dg_lib.UTMDataGenerator(
-        batch_size=32,
-        seq_length=256,
-        rng=rng,
-        utm=utm,
-        memory_size=10,
-        maximum_steps=200,
-        tokenizer=utm_dg_lib.Tokenizer.ASCII,
-        maximum_program_length=100,
-    )
+    data_generator = utm_data_generator(rng)
+    chomsky_generator = make_chomsky_generator(rng)
 
     # Load the model and parameters
     model, params = load_model_params(
         data_generator, "params.npz", data_generator.feature_size
     )
 
-    # Example of using the loaded model
-    dummy_input = jnp.zeros((1, 10), dtype=jnp.int32)  # Example input
-    predictions = model.apply(params, dummy_input, rng=None)
-    print("Predictions: ", predictions)
-    print("Model loaded successfully!")
+    regret, total_accuracy, total_final_accuracy = evaluate_transformer_decoder(
+        chomsky_generator, params, data_generator
+    )
+    print(total_accuracy, total_final_accuracy)
 
 
 if __name__ == "__main__":
