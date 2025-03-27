@@ -1,3 +1,0 @@
-[submodule "neural_chomsky_hierachy"]
-	path = neural_chomsky_hierachy
-	url = https://github.com/google-deepmind/neural_networks_chomsky_hierarchy
