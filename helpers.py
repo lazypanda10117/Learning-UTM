@@ -117,6 +117,7 @@ def evaluate_transformer_decoder(
     objective. The exact architecture can be modified using the TransformerConfig
     object (defined in models/transformer.py)
     """
+    print("Chomsky Task: ", chomsky_data_generator._task_str)
 
     model = make_model(training_data_generator, size)
     regret = 0.0
