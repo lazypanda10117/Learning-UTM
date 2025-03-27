@@ -144,6 +144,9 @@ def embed_sequences(
       lookup_style=hk.EmbedLookupStyle.ARRAY_INDEX,
       w_init=embs_init,
   )
+  # print("Sequence shape:", sequences.shape)
+  # print("Config embedding dim:", config.embedding_dim)
+  # print(embeddings_layer)
   embeddings = embeddings_layer(sequences)
   embeddings *= jnp.sqrt(config.embedding_dim)
 
