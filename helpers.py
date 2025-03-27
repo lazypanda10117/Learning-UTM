@@ -80,6 +80,7 @@ def make_chomsky_generator(
         use_delimiters=use_delimiters,
         batch_size=batch_size,
         seq_length=256,
+        expand_feature_size=16,
         rng=rng,
     )
 

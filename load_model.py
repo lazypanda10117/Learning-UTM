@@ -62,7 +62,7 @@ def main():
     rng = np.random.default_rng(seed=1)
     data_generator = utm_data_generator(rng)
     chomsky_generator = make_chomsky_generator(
-        rng, use_delimiters=False, max_input_length=20
+        rng, use_delimiters=False, max_input_length=20, task_str="cycle_navigation"
     )
 
     # Load the model and parameters
