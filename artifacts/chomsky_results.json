@@ -21,9 +21,9 @@
             "total_final_accuracy": 0.32496726512908936
         },
         "stack_manipulation": {
-            "regret": 130.97433471679688,
-            "total_accuracy": 0.434370219707489,
-            "total_final_accuracy": 0.4403352737426758
+            "regret": 132.94705200195312,
+            "total_accuracy": 0.4279513955116272,
+            "total_final_accuracy": 0.4396905303001404
         },
         "reverse_string": {
             "regret": 115.22267150878906,
@@ -31,14 +31,14 @@
             "total_final_accuracy": 0.4899972081184387
         },
         "modular_arithmetic_brackets": {
-            "regret": 5.519637107849121,
-            "total_accuracy": 0.11158796399831772,
-            "total_final_accuracy": 0.11157514899969101
+            "regret": 5.3448567390441895,
+            "total_accuracy": 0.11068098247051239,
+            "total_final_accuracy": 0.110686756670475
         },
         "solve_equation": {
-            "regret": 5.512947082519531,
-            "total_accuracy": 0.14934030175209045,
-            "total_final_accuracy": 0.14927658438682556
+            "regret": 5.433994293212891,
+            "total_accuracy": 0.149908185005188,
+            "total_final_accuracy": 0.14989782869815826
         },
         "duplicate_string": {
             "regret": 134.32431030273438,
@@ -56,595 +56,640 @@
             "total_final_accuracy": 0.48572421073913574
         },
         "binary_addition": {
-            "regret": 137.48550415039062,
-            "total_accuracy": 0.4782272279262543,
-            "total_final_accuracy": 0.4853639602661133
+            "regret": 138.6300048828125,
+            "total_accuracy": 0.47687673568725586,
+            "total_final_accuracy": 0.47829848527908325
         },
         "binary_multiplication": {
-            "regret": 102.22127532958984,
-            "total_accuracy": 0.494826078414917,
-            "total_final_accuracy": 0.4887600839138031
+            "regret": 102.58648681640625,
+            "total_accuracy": 0.4846040606498718,
+            "total_final_accuracy": 0.4660523533821106
+        },
+        "compute_sqrt": {
+            "regret": 122.92501068115234,
+            "total_accuracy": 0.4413650929927826,
+            "total_final_accuracy": 0.4466265141963959
         },
         "bucket_sort": {
-            "regret": 73.47950744628906,
-            "total_accuracy": 0.29002687335014343,
-            "total_final_accuracy": 0.2890740633010864
+            "regret": 81.6639633178711,
+            "total_accuracy": 0.2913282513618469,
+            "total_final_accuracy": 0.28767743706703186
         }
     },
     "artifacts/params_original_transformer_large.npz": {
         "even_pairs": {
-            "regret": 1.8274166584014893,
-            "total_accuracy": 0.4857190251350403,
-            "total_final_accuracy": 0.4857493042945862
+            "regret": 1.5776156187057495,
+            "total_accuracy": 0.4778573513031006,
+            "total_final_accuracy": 0.4778503477573395
         },
         "modular_arithmetic": {
-            "regret": 5.940624237060547,
-            "total_accuracy": 0.06714373081922531,
-            "total_final_accuracy": 0.06718192249536514
+            "regret": 6.3278961181640625,
+            "total_accuracy": 0.06279493868350983,
+            "total_final_accuracy": 0.06275591999292374
         },
         "parity_check": {
-            "regret": 1.3614780902862549,
-            "total_accuracy": 0.4861723482608795,
-            "total_final_accuracy": 0.4844532907009125
+            "regret": 1.591870903968811,
+            "total_accuracy": 0.4870399832725525,
+            "total_final_accuracy": 0.487049400806427
         },
         "cycle_navigation": {
-            "regret": 4.457103729248047,
-            "total_accuracy": 0.31916889548301697,
-            "total_final_accuracy": 0.3191590905189514
+            "regret": 6.969613075256348,
+            "total_accuracy": 0.31772664189338684,
+            "total_final_accuracy": 0.3178510069847107
         },
         "stack_manipulation": {
-            "regret": 122.76359558105469,
-            "total_accuracy": 0.3811061978340149,
-            "total_final_accuracy": 0.37184423208236694
+            "regret": 119.4358901977539,
+            "total_accuracy": 0.36839359998703003,
+            "total_final_accuracy": 0.36440324783325195
         },
         "reverse_string": {
-            "regret": 88.90359497070312,
-            "total_accuracy": 0.49544253945350647,
-            "total_final_accuracy": 0.47956758737564087
+            "regret": 86.98236083984375,
+            "total_accuracy": 0.48784226179122925,
+            "total_final_accuracy": 0.4785282015800476
         },
         "modular_arithmetic_brackets": {
-            "regret": 6.844045162200928,
-            "total_accuracy": 0.12408226728439331,
-            "total_final_accuracy": 0.12409539520740509
+            "regret": 6.759590148925781,
+            "total_accuracy": 0.12577958405017853,
+            "total_final_accuracy": 0.1258251965045929
         },
         "solve_equation": {
-            "regret": 7.71057653427124,
-            "total_accuracy": 0.14476315677165985,
-            "total_final_accuracy": 0.1446998566389084
+            "regret": 7.86281681060791,
+            "total_accuracy": 0.14593839645385742,
+            "total_final_accuracy": 0.14587968587875366
         },
         "duplicate_string": {
-            "regret": 113.0257568359375,
-            "total_accuracy": 0.4988955855369568,
-            "total_final_accuracy": 0.4851799011230469
+            "regret": 124.16658782958984,
+            "total_accuracy": 0.48815107345581055,
+            "total_final_accuracy": 0.4839726984500885
         },
         "missing_duplicate_string": {
-            "regret": 2.2372288703918457,
-            "total_accuracy": 0.47819986939430237,
-            "total_final_accuracy": 0.47822707891464233
+            "regret": 1.3591535091400146,
+            "total_accuracy": 0.4869934916496277,
+            "total_final_accuracy": 0.48698917031288147
         },
         "odds_first": {
-            "regret": 87.47064208984375,
-            "total_accuracy": 0.4871489107608795,
-            "total_final_accuracy": 0.482509046792984
+            "regret": 97.1171875,
+            "total_accuracy": 0.492215633392334,
+            "total_final_accuracy": 0.4895936846733093
         },
         "binary_addition": {
-            "regret": 116.2874526977539,
-            "total_accuracy": 0.4728076457977295,
-            "total_final_accuracy": 0.4775784909725189
+            "regret": 90.38409423828125,
+            "total_accuracy": 0.4539639353752136,
+            "total_final_accuracy": 0.4602695107460022
         },
         "binary_multiplication": {
-            "regret": 92.08952331542969,
-            "total_accuracy": 0.47082796692848206,
-            "total_final_accuracy": 0.4744873642921448
+            "regret": 88.97085571289062,
+            "total_accuracy": 0.47753873467445374,
+            "total_final_accuracy": 0.4935382008552551
+        },
+        "compute_sqrt": {
+            "regret": 79.669921875,
+            "total_accuracy": 0.44239911437034607,
+            "total_final_accuracy": 0.4476085603237152
         },
         "bucket_sort": {
-            "regret": 188.58322143554688,
-            "total_accuracy": 0.16966113448143005,
-            "total_final_accuracy": 0.1675136834383011
+            "regret": 178.52481079101562,
+            "total_accuracy": 0.17480352520942688,
+            "total_final_accuracy": 0.1735955774784088
         }
     },
     "artifacts/params_random_transformer_large.npz": {
         "even_pairs": {
-            "regret": 9.688692092895508,
-            "total_accuracy": 0.0028035161085426807,
-            "total_final_accuracy": 0.002804652089253068
+            "regret": 10.867260932922363,
+            "total_accuracy": 0.002779751317575574,
+            "total_final_accuracy": 0.0027792351320385933
         },
         "modular_arithmetic": {
-            "regret": 6.283071517944336,
-            "total_accuracy": 0.008665897883474827,
-            "total_final_accuracy": 0.008665299043059349
+            "regret": 7.122645378112793,
+            "total_accuracy": 0.008263835683465004,
+            "total_final_accuracy": 0.008260240778326988
         },
         "parity_check": {
-            "regret": 7.169353485107422,
-            "total_accuracy": 0.0028340634889900684,
-            "total_final_accuracy": 0.0028346821200102568
+            "regret": 9.015236854553223,
+            "total_accuracy": 0.002836068393662572,
+            "total_final_accuracy": 0.0028366143815219402
         },
         "cycle_navigation": {
-            "regret": 7.617750644683838,
-            "total_accuracy": 0.01266535371541977,
-            "total_final_accuracy": 0.012668723240494728
+            "regret": 8.31063175201416,
+            "total_accuracy": 0.012289411388337612,
+            "total_final_accuracy": 0.012285665608942509
         },
         "stack_manipulation": {
-            "regret": 415.3968200683594,
-            "total_accuracy": 0.0068950774148106575,
-            "total_final_accuracy": 0.007322703488171101
+            "regret": 333.2983703613281,
+            "total_accuracy": 0.00581976817920804,
+            "total_final_accuracy": 0.005243035964667797
         },
         "reverse_string": {
-            "regret": 604.9419555664062,
-            "total_accuracy": 0.0027921912260353565,
-            "total_final_accuracy": 0.0027870605699718
+            "regret": 447.64434814453125,
+            "total_accuracy": 0.0027340585365891457,
+            "total_final_accuracy": 0.0027674627490341663
         },
         "modular_arithmetic_brackets": {
-            "regret": 8.316133499145508,
-            "total_accuracy": 0.008302826434373856,
-            "total_final_accuracy": 0.008303133770823479
+            "regret": 8.347514152526855,
+            "total_accuracy": 0.008339975029230118,
+            "total_final_accuracy": 0.008342234417796135
         },
         "solve_equation": {
-            "regret": 7.359034061431885,
-            "total_accuracy": 0.008711954578757286,
-            "total_final_accuracy": 0.00871159415692091
+            "regret": 6.232067584991455,
+            "total_accuracy": 0.008839743211865425,
+            "total_final_accuracy": 0.00883937906473875
         },
         "duplicate_string": {
-            "regret": 619.8643798828125,
-            "total_accuracy": 0.002760672476142645,
-            "total_final_accuracy": 0.0027873010840266943
+            "regret": 458.109130859375,
+            "total_accuracy": 0.002753582550212741,
+            "total_final_accuracy": 0.0027504239697009325
         },
         "missing_duplicate_string": {
-            "regret": 10.724000930786133,
-            "total_accuracy": 0.003090344835072756,
-            "total_final_accuracy": 0.0030909657943993807
+            "regret": 11.444218635559082,
+            "total_accuracy": 0.003080140333622694,
+            "total_final_accuracy": 0.003080846043303609
         },
         "odds_first": {
-            "regret": 450.6175231933594,
-            "total_accuracy": 0.0027721947990357876,
-            "total_final_accuracy": 0.0027875921223312616
+            "regret": 428.3717346191406,
+            "total_accuracy": 0.002785398857668042,
+            "total_final_accuracy": 0.002767586149275303
         },
         "binary_addition": {
-            "regret": 485.55792236328125,
-            "total_accuracy": 0.0029892546590417624,
-            "total_final_accuracy": 0.002972101792693138
+            "regret": 532.7531127929688,
+            "total_accuracy": 0.003071768442168832,
+            "total_final_accuracy": 0.0030959774740040302
         },
         "binary_multiplication": {
-            "regret": 406.44830322265625,
-            "total_accuracy": 0.0030366990249603987,
-            "total_final_accuracy": 0.003032422624528408
+            "regret": 295.9900817871094,
+            "total_accuracy": 0.002958627650514245,
+            "total_final_accuracy": 0.0029280916787683964
+        },
+        "compute_sqrt": {
+            "regret": 459.900146484375,
+            "total_accuracy": 0.003304682672023773,
+            "total_final_accuracy": 0.0032839830964803696
         },
         "bucket_sort": {
-            "regret": 329.19256591796875,
-            "total_accuracy": 0.008683481253683567,
-            "total_final_accuracy": 0.008664024993777275
+            "regret": 391.0875549316406,
+            "total_accuracy": 0.008468333631753922,
+            "total_final_accuracy": 0.008419634774327278
         }
     },
     "artifacts/params_markov_transformer_medium.npz": {
         "even_pairs": {
-            "regret": 1.2581082582473755,
-            "total_accuracy": 0.4747542440891266,
-            "total_final_accuracy": 0.4747912287712097
+            "regret": 2.034879684448242,
+            "total_accuracy": 0.463996559381485,
+            "total_final_accuracy": 0.46401605010032654
         },
         "modular_arithmetic": {
-            "regret": 3.321981906890869,
-            "total_accuracy": 0.05008203908801079,
-            "total_final_accuracy": 0.050080686807632446
+            "regret": 4.499303340911865,
+            "total_accuracy": 0.05001259595155716,
+            "total_final_accuracy": 0.049999985843896866
         },
         "parity_check": {
-            "regret": 1.3234574794769287,
-            "total_accuracy": 0.46366119384765625,
-            "total_final_accuracy": 0.4636317789554596
+            "regret": 1.653493881225586,
+            "total_accuracy": 0.46997275948524475,
+            "total_final_accuracy": 0.47002848982810974
         },
         "cycle_navigation": {
-            "regret": 3.4300856590270996,
-            "total_accuracy": 0.31544816493988037,
-            "total_final_accuracy": 0.3154597580432892
+            "regret": 4.910348892211914,
+            "total_accuracy": 0.3111177682876587,
+            "total_final_accuracy": 0.31333446502685547
         },
         "stack_manipulation": {
-            "regret": 112.8131103515625,
-            "total_accuracy": 0.30677926540374756,
-            "total_final_accuracy": 0.3123079538345337
+            "regret": 125.47383880615234,
+            "total_accuracy": 0.3271377980709076,
+            "total_final_accuracy": 0.3333584666252136
         },
         "reverse_string": {
-            "regret": 59.5986213684082,
-            "total_accuracy": 0.47328051924705505,
-            "total_final_accuracy": 0.47411051392555237
+            "regret": 56.931846618652344,
+            "total_accuracy": 0.47621530294418335,
+            "total_final_accuracy": 0.47558051347732544
         },
         "modular_arithmetic_brackets": {
-            "regret": 4.408718585968018,
-            "total_accuracy": 0.10491742193698883,
-            "total_final_accuracy": 0.10471203178167343
+            "regret": 4.376881122589111,
+            "total_accuracy": 0.10433141142129898,
+            "total_final_accuracy": 0.10432121902704239
         },
         "solve_equation": {
-            "regret": 5.698983669281006,
-            "total_accuracy": 0.12370111793279648,
-            "total_final_accuracy": 0.12368564307689667
+            "regret": 5.3888325691223145,
+            "total_accuracy": 0.12498154491186142,
+            "total_final_accuracy": 0.1249658614397049
         },
         "duplicate_string": {
-            "regret": 48.844825744628906,
-            "total_accuracy": 0.4781130850315094,
-            "total_final_accuracy": 0.47327908873558044
+            "regret": 77.25871276855469,
+            "total_accuracy": 0.47097110748291016,
+            "total_final_accuracy": 0.46976518630981445
         },
         "missing_duplicate_string": {
-            "regret": 1.3603416681289673,
-            "total_accuracy": 0.4558711051940918,
-            "total_final_accuracy": 0.4558645784854889
+            "regret": 1.941912293434143,
+            "total_accuracy": 0.4502545893192291,
+            "total_final_accuracy": 0.4501476287841797
         },
         "odds_first": {
-            "regret": 57.467926025390625,
-            "total_accuracy": 0.47714224457740784,
-            "total_final_accuracy": 0.4711207449436188
+            "regret": 77.3031005859375,
+            "total_accuracy": 0.475168377161026,
+            "total_final_accuracy": 0.47159337997436523
         },
         "binary_addition": {
-            "regret": 43.019691467285156,
-            "total_accuracy": 0.4610363841056824,
-            "total_final_accuracy": 0.4624367356300354
+            "regret": 67.32704162597656,
+            "total_accuracy": 0.4584302306175232,
+            "total_final_accuracy": 0.4596230089664459
         },
         "binary_multiplication": {
-            "regret": 82.87689971923828,
-            "total_accuracy": 0.45388516783714294,
-            "total_final_accuracy": 0.4525505602359772
+            "regret": 46.20561218261719,
+            "total_accuracy": 0.4692404270172119,
+            "total_final_accuracy": 0.46923667192459106
+        },
+        "compute_sqrt": {
+            "regret": 64.97052764892578,
+            "total_accuracy": 0.4058017134666443,
+            "total_final_accuracy": 0.40588170289993286
         },
         "bucket_sort": {
-            "regret": 145.42929077148438,
-            "total_accuracy": 0.2034224569797516,
-            "total_final_accuracy": 0.2045520544052124
+            "regret": 121.02787017822266,
+            "total_accuracy": 0.20565727353096008,
+            "total_final_accuracy": 0.20656898617744446
         }
     },
     "artifacts/params_original_transformer_medium.npz": {
         "even_pairs": {
-            "regret": 1.8827979564666748,
-            "total_accuracy": 0.4524954855442047,
-            "total_final_accuracy": 0.45235300064086914
+            "regret": 1.6584293842315674,
+            "total_accuracy": 0.4674552083015442,
+            "total_final_accuracy": 0.46748384833335876
         },
         "modular_arithmetic": {
-            "regret": 4.783807754516602,
-            "total_accuracy": 0.04030604287981987,
-            "total_final_accuracy": 0.0403025858104229
+            "regret": 3.798161745071411,
+            "total_accuracy": 0.042445108294487,
+            "total_final_accuracy": 0.042448561638593674
         },
         "parity_check": {
-            "regret": 1.9638760089874268,
-            "total_accuracy": 0.4821225106716156,
-            "total_final_accuracy": 0.4821591377258301
+            "regret": 1.577323317527771,
+            "total_accuracy": 0.4778314530849457,
+            "total_final_accuracy": 0.4791243076324463
         },
         "cycle_navigation": {
-            "regret": 4.629332542419434,
-            "total_accuracy": 0.3096679151058197,
-            "total_final_accuracy": 0.31537216901779175
+            "regret": 3.1243553161621094,
+            "total_accuracy": 0.3097118139266968,
+            "total_final_accuracy": 0.3096923232078552
         },
         "stack_manipulation": {
-            "regret": 123.62205505371094,
-            "total_accuracy": 0.3137159049510956,
-            "total_final_accuracy": 0.3222460448741913
+            "regret": 150.8571014404297,
+            "total_accuracy": 0.32513442635536194,
+            "total_final_accuracy": 0.3289042115211487
         },
         "reverse_string": {
-            "regret": 105.34432220458984,
-            "total_accuracy": 0.4832700788974762,
-            "total_final_accuracy": 0.4861827492713928
+            "regret": 69.79474639892578,
+            "total_accuracy": 0.47430235147476196,
+            "total_final_accuracy": 0.47525015473365784
         },
         "modular_arithmetic_brackets": {
-            "regret": 4.441184043884277,
-            "total_accuracy": 0.07225362956523895,
-            "total_final_accuracy": 0.07223652303218842
+            "regret": 5.806279182434082,
+            "total_accuracy": 0.07205955684185028,
+            "total_final_accuracy": 0.07206405699253082
         },
         "solve_equation": {
-            "regret": 4.9859185218811035,
-            "total_accuracy": 0.08269672840833664,
-            "total_final_accuracy": 0.08271249383687973
+            "regret": 6.189371585845947,
+            "total_accuracy": 0.08132469654083252,
+            "total_final_accuracy": 0.08132974803447723
         },
         "duplicate_string": {
-            "regret": 114.95191955566406,
-            "total_accuracy": 0.4806057810783386,
-            "total_final_accuracy": 0.4758915901184082
+            "regret": 73.15148162841797,
+            "total_accuracy": 0.48204055428504944,
+            "total_final_accuracy": 0.48139435052871704
         },
         "missing_duplicate_string": {
-            "regret": 1.7310049533843994,
-            "total_accuracy": 0.4569989740848541,
-            "total_final_accuracy": 0.4570484757423401
+            "regret": 1.4111632108688354,
+            "total_accuracy": 0.48922842741012573,
+            "total_final_accuracy": 0.4892885088920593
         },
         "odds_first": {
-            "regret": 84.02207946777344,
-            "total_accuracy": 0.47674933075904846,
-            "total_final_accuracy": 0.47923707962036133
+            "regret": 89.3067626953125,
+            "total_accuracy": 0.46902742981910706,
+            "total_final_accuracy": 0.46506959199905396
         },
         "binary_addition": {
-            "regret": 123.8768539428711,
-            "total_accuracy": 0.46325501799583435,
-            "total_final_accuracy": 0.4566107392311096
+            "regret": 99.98250579833984,
+            "total_accuracy": 0.4536891579627991,
+            "total_final_accuracy": 0.45230650901794434
         },
         "binary_multiplication": {
-            "regret": 86.60986328125,
-            "total_accuracy": 0.4715949594974518,
-            "total_final_accuracy": 0.4727734625339508
+            "regret": 80.98135375976562,
+            "total_accuracy": 0.4617513120174408,
+            "total_final_accuracy": 0.4737236499786377
+        },
+        "compute_sqrt": {
+            "regret": 79.63127136230469,
+            "total_accuracy": 0.4411143362522125,
+            "total_final_accuracy": 0.44305720925331116
         },
         "bucket_sort": {
-            "regret": 147.12225341796875,
-            "total_accuracy": 0.16404536366462708,
-            "total_final_accuracy": 0.1680321991443634
+            "regret": 126.52003479003906,
+            "total_accuracy": 0.16378054022789001,
+            "total_final_accuracy": 0.16377069056034088
         }
     },
     "artifacts/params_random_transformer_medium.npz": {
         "even_pairs": {
-            "regret": 8.701148986816406,
-            "total_accuracy": 0.008290144614875317,
-            "total_final_accuracy": 0.008280850946903229
+            "regret": 7.738293647766113,
+            "total_accuracy": 0.008281027898192406,
+            "total_final_accuracy": 0.008280721493065357
         },
         "modular_arithmetic": {
-            "regret": 8.691073417663574,
-            "total_accuracy": 0.006009834818542004,
-            "total_final_accuracy": 0.00600963132455945
+            "regret": 8.788501739501953,
+            "total_accuracy": 0.005982512142509222,
+            "total_final_accuracy": 0.005982914939522743
         },
         "parity_check": {
-            "regret": 8.745431900024414,
-            "total_accuracy": 0.008213519118726254,
-            "total_final_accuracy": 0.008213182911276817
+            "regret": 9.491332054138184,
+            "total_accuracy": 0.008318034932017326,
+            "total_final_accuracy": 0.008318481966853142
         },
         "cycle_navigation": {
-            "regret": 12.81360149383545,
-            "total_accuracy": 0.00773056223988533,
-            "total_final_accuracy": 0.007731480989605188
+            "regret": 11.482089042663574,
+            "total_accuracy": 0.007567938417196274,
+            "total_final_accuracy": 0.007567618973553181
         },
         "stack_manipulation": {
-            "regret": 346.102294921875,
-            "total_accuracy": 0.00787277240306139,
-            "total_final_accuracy": 0.00792831089347601
+            "regret": 270.4273986816406,
+            "total_accuracy": 0.007042690180242062,
+            "total_final_accuracy": 0.006978190504014492
         },
         "reverse_string": {
-            "regret": 427.06756591796875,
-            "total_accuracy": 0.008350396528840065,
-            "total_final_accuracy": 0.008324738591909409
+            "regret": 402.2772216796875,
+            "total_accuracy": 0.008306759409606457,
+            "total_final_accuracy": 0.00827005971223116
         },
         "modular_arithmetic_brackets": {
-            "regret": 8.598520278930664,
-            "total_accuracy": 0.006935393903404474,
-            "total_final_accuracy": 0.0069131432101130486
+            "regret": 6.532174587249756,
+            "total_accuracy": 0.006862002424895763,
+            "total_final_accuracy": 0.006861287169158459
         },
         "solve_equation": {
-            "regret": 7.6615447998046875,
-            "total_accuracy": 0.006123586092144251,
-            "total_final_accuracy": 0.006123265717178583
+            "regret": 8.180673599243164,
+            "total_accuracy": 0.006090782582759857,
+            "total_final_accuracy": 0.006090518087148666
         },
         "duplicate_string": {
-            "regret": 413.9747009277344,
-            "total_accuracy": 0.008320173248648643,
-            "total_final_accuracy": 0.008310245350003242
+            "regret": 542.4873657226562,
+            "total_accuracy": 0.008351573720574379,
+            "total_final_accuracy": 0.008360066451132298
         },
         "missing_duplicate_string": {
-            "regret": 8.2485933303833,
-            "total_accuracy": 0.008325942791998386,
-            "total_final_accuracy": 0.00832666177302599
+            "regret": 6.884158134460449,
+            "total_accuracy": 0.00831453688442707,
+            "total_final_accuracy": 0.008314287289977074
         },
         "odds_first": {
-            "regret": 300.2123107910156,
-            "total_accuracy": 0.008352990262210369,
-            "total_final_accuracy": 0.008350571617484093
+            "regret": 366.68731689453125,
+            "total_accuracy": 0.008333953097462654,
+            "total_final_accuracy": 0.008398080244660378
         },
         "binary_addition": {
-            "regret": 416.753662109375,
-            "total_accuracy": 0.008313280530273914,
-            "total_final_accuracy": 0.008303297683596611
+            "regret": 366.7483215332031,
+            "total_accuracy": 0.008392572402954102,
+            "total_final_accuracy": 0.00832771323621273
         },
         "binary_multiplication": {
-            "regret": 355.12811279296875,
-            "total_accuracy": 0.008328447118401527,
-            "total_final_accuracy": 0.008292416110634804
+            "regret": 346.5831298828125,
+            "total_accuracy": 0.008253064937889576,
+            "total_final_accuracy": 0.008253708481788635
+        },
+        "compute_sqrt": {
+            "regret": 370.0435791015625,
+            "total_accuracy": 0.008244017139077187,
+            "total_final_accuracy": 0.008194925263524055
         },
         "bucket_sort": {
-            "regret": 356.07073974609375,
-            "total_accuracy": 0.00706013897433877,
-            "total_final_accuracy": 0.007120225578546524
+            "regret": 339.65020751953125,
+            "total_accuracy": 0.007006180472671986,
+            "total_final_accuracy": 0.00711200013756752
         }
     },
     "artifacts/params_markov_transformer_small.npz": {
         "even_pairs": {
-            "regret": 1.5969040393829346,
-            "total_accuracy": 0.3682406544685364,
-            "total_final_accuracy": 0.36822062730789185
+            "regret": 2.296178102493286,
+            "total_accuracy": 0.37139463424682617,
+            "total_final_accuracy": 0.3714064061641693
         },
         "modular_arithmetic": {
-            "regret": 3.8115763664245605,
-            "total_accuracy": 0.0454370491206646,
-            "total_final_accuracy": 0.045448921620845795
+            "regret": 4.531522750854492,
+            "total_accuracy": 0.042575936764478683,
+            "total_final_accuracy": 0.04257499426603317
         },
         "parity_check": {
-            "regret": 1.7762410640716553,
-            "total_accuracy": 0.3750378489494324,
-            "total_final_accuracy": 0.37503188848495483
+            "regret": 1.6197974681854248,
+            "total_accuracy": 0.3676314949989319,
+            "total_final_accuracy": 0.36758026480674744
         },
         "cycle_navigation": {
-            "regret": 5.089096546173096,
-            "total_accuracy": 0.22320771217346191,
-            "total_final_accuracy": 0.22318848967552185
+            "regret": 4.808099746704102,
+            "total_accuracy": 0.22491255402565002,
+            "total_final_accuracy": 0.22488410770893097
         },
         "stack_manipulation": {
-            "regret": 112.91688537597656,
-            "total_accuracy": 0.24848607182502747,
-            "total_final_accuracy": 0.27721935510635376
+            "regret": 88.01332092285156,
+            "total_accuracy": 0.21145634353160858,
+            "total_final_accuracy": 0.237614706158638
         },
         "reverse_string": {
-            "regret": 90.87762451171875,
-            "total_accuracy": 0.3741122782230377,
-            "total_final_accuracy": 0.38014429807662964
+            "regret": 75.28986358642578,
+            "total_accuracy": 0.3758067190647125,
+            "total_final_accuracy": 0.3806229531764984
         },
         "modular_arithmetic_brackets": {
-            "regret": 5.004638671875,
-            "total_accuracy": 0.03825764358043671,
-            "total_final_accuracy": 0.03826107084751129
+            "regret": 5.631237506866455,
+            "total_accuracy": 0.03790827468037605,
+            "total_final_accuracy": 0.037904441356658936
         },
         "solve_equation": {
-            "regret": 5.184771537780762,
-            "total_accuracy": 0.03019791841506958,
-            "total_final_accuracy": 0.030192334204912186
+            "regret": 4.718807697296143,
+            "total_accuracy": 0.030462587252259254,
+            "total_final_accuracy": 0.030466001480817795
         },
         "duplicate_string": {
-            "regret": 89.80851745605469,
-            "total_accuracy": 0.37432241439819336,
-            "total_final_accuracy": 0.37559354305267334
+            "regret": 83.07972717285156,
+            "total_accuracy": 0.37646666169166565,
+            "total_final_accuracy": 0.37797099351882935
         },
         "missing_duplicate_string": {
-            "regret": 1.8653647899627686,
-            "total_accuracy": 0.3709654211997986,
-            "total_final_accuracy": 0.37094464898109436
+            "regret": 1.7309038639068604,
+            "total_accuracy": 0.36246758699417114,
+            "total_final_accuracy": 0.3624270558357239
         },
         "odds_first": {
-            "regret": 77.88258361816406,
-            "total_accuracy": 0.37294453382492065,
-            "total_final_accuracy": 0.3686070144176483
+            "regret": 65.49830627441406,
+            "total_accuracy": 0.3724852502346039,
+            "total_final_accuracy": 0.37449899315834045
         },
         "binary_addition": {
-            "regret": 97.55990600585938,
-            "total_accuracy": 0.3635583519935608,
-            "total_final_accuracy": 0.36486703157424927
+            "regret": 78.40196990966797,
+            "total_accuracy": 0.3695060908794403,
+            "total_final_accuracy": 0.3738005459308624
         },
         "binary_multiplication": {
-            "regret": 57.4095458984375,
-            "total_accuracy": 0.37025877833366394,
-            "total_final_accuracy": 0.3719431459903717
+            "regret": 93.63272094726562,
+            "total_accuracy": 0.3672278821468353,
+            "total_final_accuracy": 0.36659592390060425
+        },
+        "compute_sqrt": {
+            "regret": 80.69071960449219,
+            "total_accuracy": 0.3429900109767914,
+            "total_final_accuracy": 0.3410186767578125
         },
         "bucket_sort": {
-            "regret": 124.25331115722656,
-            "total_accuracy": 0.1631496548652649,
-            "total_final_accuracy": 0.16341713070869446
+            "regret": 112.92723083496094,
+            "total_accuracy": 0.15749070048332214,
+            "total_final_accuracy": 0.1569882482290268
         }
     },
     "artifacts/params_original_transformer_small.npz": {
         "even_pairs": {
-            "regret": 2.437993288040161,
-            "total_accuracy": 0.3607330918312073,
-            "total_final_accuracy": 0.36078232526779175
+            "regret": 2.248774528503418,
+            "total_accuracy": 0.35251879692077637,
+            "total_final_accuracy": 0.35248294472694397
         },
         "modular_arithmetic": {
-            "regret": 4.227688789367676,
-            "total_accuracy": 0.05808349326252937,
-            "total_final_accuracy": 0.05806533247232437
+            "regret": 4.857332229614258,
+            "total_accuracy": 0.06124567985534668,
+            "total_final_accuracy": 0.061258625239133835
         },
         "parity_check": {
-            "regret": 1.7446504831314087,
-            "total_accuracy": 0.3632611632347107,
-            "total_final_accuracy": 0.36330586671829224
+            "regret": 2.1131436824798584,
+            "total_accuracy": 0.35902392864227295,
+            "total_final_accuracy": 0.36028605699539185
         },
         "cycle_navigation": {
-            "regret": 4.119456768035889,
-            "total_accuracy": 0.2210347205400467,
-            "total_final_accuracy": 0.22108380496501923
+            "regret": 6.697678565979004,
+            "total_accuracy": 0.21343569457530975,
+            "total_final_accuracy": 0.2133597582578659
         },
         "stack_manipulation": {
-            "regret": 101.46309661865234,
-            "total_accuracy": 0.2507648169994354,
-            "total_final_accuracy": 0.22369995713233948
+            "regret": 95.47565460205078,
+            "total_accuracy": 0.22246357798576355,
+            "total_final_accuracy": 0.24706101417541504
         },
         "reverse_string": {
-            "regret": 82.74333190917969,
-            "total_accuracy": 0.36250075697898865,
-            "total_final_accuracy": 0.36607977747917175
+            "regret": 91.88337707519531,
+            "total_accuracy": 0.3666292130947113,
+            "total_final_accuracy": 0.36768442392349243
         },
         "modular_arithmetic_brackets": {
-            "regret": 5.033455848693848,
-            "total_accuracy": 0.03317906707525253,
-            "total_final_accuracy": 0.033162493258714676
+            "regret": 4.39564847946167,
+            "total_accuracy": 0.030909782275557518,
+            "total_final_accuracy": 0.030219057574868202
         },
         "solve_equation": {
-            "regret": 4.234469890594482,
-            "total_accuracy": 0.029528403654694557,
-            "total_final_accuracy": 0.029546484351158142
+            "regret": 4.534668445587158,
+            "total_accuracy": 0.028586093336343765,
+            "total_final_accuracy": 0.028583895415067673
         },
         "duplicate_string": {
-            "regret": 124.93437194824219,
-            "total_accuracy": 0.36902326345443726,
-            "total_final_accuracy": 0.3741298317909241
+            "regret": 105.19600677490234,
+            "total_accuracy": 0.36370450258255005,
+            "total_final_accuracy": 0.3611254096031189
         },
         "missing_duplicate_string": {
-            "regret": 1.75945246219635,
-            "total_accuracy": 0.3664042353630066,
-            "total_final_accuracy": 0.3665103316307068
+            "regret": 2.2498815059661865,
+            "total_accuracy": 0.34861183166503906,
+            "total_final_accuracy": 0.34844085574150085
         },
         "odds_first": {
-            "regret": 90.30152893066406,
-            "total_accuracy": 0.36751270294189453,
-            "total_final_accuracy": 0.3787442445755005
+            "regret": 82.34667205810547,
+            "total_accuracy": 0.3619764447212219,
+            "total_final_accuracy": 0.36306047439575195
         },
         "binary_addition": {
-            "regret": 102.11759948730469,
-            "total_accuracy": 0.3571847379207611,
-            "total_final_accuracy": 0.3559141755104065
+            "regret": 68.5146255493164,
+            "total_accuracy": 0.36240941286087036,
+            "total_final_accuracy": 0.3585464060306549
         },
         "binary_multiplication": {
-            "regret": 79.9383544921875,
-            "total_accuracy": 0.36197149753570557,
-            "total_final_accuracy": 0.3596247434616089
+            "regret": 65.95332336425781,
+            "total_accuracy": 0.3607354760169983,
+            "total_final_accuracy": 0.36786147952079773
+        },
+        "compute_sqrt": {
+            "regret": 86.02920532226562,
+            "total_accuracy": 0.3376818597316742,
+            "total_final_accuracy": 0.33667996525764465
         },
         "bucket_sort": {
-            "regret": 133.4989776611328,
-            "total_accuracy": 0.1582576036453247,
-            "total_final_accuracy": 0.16012489795684814
+            "regret": 139.11038208007812,
+            "total_accuracy": 0.15789015591144562,
+            "total_final_accuracy": 0.15903569757938385
         }
     },
     "artifacts/params_random_transformer_small.npz": {
         "even_pairs": {
-            "regret": 10.064984321594238,
-            "total_accuracy": 0.007977895438671112,
-            "total_final_accuracy": 0.007978620938956738
+            "regret": 10.449766159057617,
+            "total_accuracy": 0.00814049132168293,
+            "total_final_accuracy": 0.008140122517943382
         },
         "modular_arithmetic": {
-            "regret": 9.75471019744873,
-            "total_accuracy": 0.008821945637464523,
-            "total_final_accuracy": 0.008821041323244572
+            "regret": 9.665722846984863,
+            "total_accuracy": 0.00869812536984682,
+            "total_final_accuracy": 0.008700346574187279
         },
         "parity_check": {
-            "regret": 9.616312026977539,
-            "total_accuracy": 0.008154635317623615,
-            "total_final_accuracy": 0.008154267445206642
+            "regret": 8.215672492980957,
+            "total_accuracy": 0.008248237892985344,
+            "total_final_accuracy": 0.00824819877743721
         },
         "cycle_navigation": {
-            "regret": 7.571900367736816,
-            "total_accuracy": 0.007004543207585812,
-            "total_final_accuracy": 0.0070043159648776054
+            "regret": 7.734831809997559,
+            "total_accuracy": 0.007100551389157772,
+            "total_final_accuracy": 0.007102566305547953
         },
         "stack_manipulation": {
-            "regret": 320.7821960449219,
-            "total_accuracy": 0.007125890348106623,
-            "total_final_accuracy": 0.007375051267445087
+            "regret": 379.03643798828125,
+            "total_accuracy": 0.007014974020421505,
+            "total_final_accuracy": 0.007185844238847494
         },
         "reverse_string": {
-            "regret": 334.44635009765625,
-            "total_accuracy": 0.008072675205767155,
-            "total_final_accuracy": 0.008111037313938141
+            "regret": 386.0640563964844,
+            "total_accuracy": 0.008054275065660477,
+            "total_final_accuracy": 0.008043034002184868
         },
         "modular_arithmetic_brackets": {
-            "regret": 7.4947381019592285,
-            "total_accuracy": 0.011089629493653774,
-            "total_final_accuracy": 0.011087039485573769
+            "regret": 9.594206809997559,
+            "total_accuracy": 0.011320523917675018,
+            "total_final_accuracy": 0.011320681311190128
         },
         "solve_equation": {
-            "regret": 9.314023971557617,
-            "total_accuracy": 0.01081357803195715,
-            "total_final_accuracy": 0.010808603838086128
+            "regret": 13.05250072479248,
+            "total_accuracy": 0.010876046493649483,
+            "total_final_accuracy": 0.010873903520405293
         },
         "duplicate_string": {
-            "regret": 432.349365234375,
-            "total_accuracy": 0.008045037277042866,
-            "total_final_accuracy": 0.008152524009346962
+            "regret": 357.2576904296875,
+            "total_accuracy": 0.00812474638223648,
+            "total_final_accuracy": 0.008185450918972492
         },
         "missing_duplicate_string": {
-            "regret": 8.519277572631836,
-            "total_accuracy": 0.00808922853320837,
-            "total_final_accuracy": 0.008079538121819496
+            "regret": 9.736465454101562,
+            "total_accuracy": 0.008043128997087479,
+            "total_final_accuracy": 0.008044315502047539
         },
         "odds_first": {
-            "regret": 315.0657653808594,
-            "total_accuracy": 0.008175083436071873,
-            "total_final_accuracy": 0.008017905987799168
+            "regret": 312.7104187011719,
+            "total_accuracy": 0.008149007335305214,
+            "total_final_accuracy": 0.008131652139127254
         },
         "binary_addition": {
-            "regret": 411.19586181640625,
-            "total_accuracy": 0.008159900084137917,
-            "total_final_accuracy": 0.008058689534664154
+            "regret": 455.6715393066406,
+            "total_accuracy": 0.008137555792927742,
+            "total_final_accuracy": 0.008083218708634377
         },
         "binary_multiplication": {
-            "regret": 316.27142333984375,
-            "total_accuracy": 0.00821690633893013,
-            "total_final_accuracy": 0.008115955628454685
+            "regret": 352.9180908203125,
+            "total_accuracy": 0.008103716187179089,
+            "total_final_accuracy": 0.008108478970825672
+        },
+        "compute_sqrt": {
+            "regret": 385.1048583984375,
+            "total_accuracy": 0.007847651839256287,
+            "total_final_accuracy": 0.007849043235182762
         },
         "bucket_sort": {
-            "regret": 495.21783447265625,
-            "total_accuracy": 0.006883448921144009,
-            "total_final_accuracy": 0.006929653696715832
+            "regret": 346.1790466308594,
+            "total_accuracy": 0.006887304130941629,
+            "total_final_accuracy": 0.007078438065946102
         }
     }
 }
