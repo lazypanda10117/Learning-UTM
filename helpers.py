@@ -11,16 +11,35 @@ from data import (
 from data import data_generator as dg_lib
 import jax.numpy as jnp
 
+CHOMSKY_ALPHABET_SIZE = 17
 
-def make_config_generator(
+def make_transformer_config(
     vocab_size: int,
+    size: str = "large",
 ):
-    return transformer.TransformerConfig(
-        vocab_size=vocab_size,
-        num_layers=6,
-        embedding_dim=256,
-        num_heads=4,
-    )
+    if size == "large":
+        return transformer.TransformerConfig(
+            vocab_size=vocab_size,
+            num_layers=6,
+            embedding_dim=256,
+            num_heads=4,
+        )
+    elif size == "medium":
+        return transformer.TransformerConfig(
+            vocab_size=vocab_size,
+            num_layers=4,
+            embedding_dim=64,
+            num_heads=4,
+        )
+    elif size == "small":
+        return transformer.TransformerConfig(
+            vocab_size=vocab_size,
+            num_layers=2,
+            embedding_dim=16,
+            num_heads=2,
+        )
+    else:
+        raise ValueError(f"Invalid transformer size: {size}")
 
 
 def utm_data_generator(
@@ -29,13 +48,14 @@ def utm_data_generator(
     seq_length=256,
     maximum_program_length=100,
     memory_size=10,
-    alphabet_size=9,
+    alphabet_size=CHOMSKY_ALPHABET_SIZE,
+    batch_size=128,
 ):
     program_sampler = utms_lib.FastSampler(rng=rng)
     utm = utms_lib.BrainPhoqueUTM(program_sampler, alphabet_size=alphabet_size)
 
     return utm_dg_lib.UTMDataGenerator(
-        batch_size=32,
+        batch_size=batch_size,
         seq_length=seq_length,
         rng=rng,
         utm=utm,
@@ -47,20 +67,20 @@ def utm_data_generator(
 
 
 def make_chomsky_generator(
-    rng, task_str="even_pairs", use_delimiters=True, max_input_length=20
+    rng, task_str="even_pairs", use_delimiters=True, max_input_length=256, batch_size=128
 ):
     return chomsky_sampler_lib.ChomskyDataGenerator(
         task_str=task_str,
         max_input_length=max_input_length,
         use_delimiters=use_delimiters,
-        batch_size=32,
+        batch_size=batch_size,
         seq_length=256,
         rng=rng,
     )
 
 
-def make_model(data_generator):
-    config = make_config_generator(data_generator.feature_size)
+def make_model(data_generator, size: str = "large"):
+    config = make_transformer_config(data_generator.feature_size, size)
     return hk.transform(
         functools.partial(transformer.transformer_decoder, config=config)
     )
@@ -76,10 +96,11 @@ def init_params(model, data_generator, batch_size):
 
 
 def evaluate_transformer_decoder(
-    data_generator: dg_lib.DataGenerator,
+    chomsky_data_generator: chomsky_sampler_lib.ChomskyDataGenerator,
     params: hk.Params,
-    training_data_generator: dg_lib.DataGenerator = None,
-    num_batches: int = 10,
+    training_data_generator: utm_dg_lib.UTMDataGenerator = None,
+    num_batches: int = 100,
+    size: str = "large",
 ) -> tuple[float, float, float]:
     """Evaluates a neural network on some synthetic data.
 
@@ -88,19 +109,20 @@ def evaluate_transformer_decoder(
     object (defined in models/transformer.py)
     """
 
-    model = make_model(training_data_generator)
+    model = make_model(training_data_generator, size)
     regret = 0.0
     default_mask = lambda x: np.zeros(x.shape[:2], dtype=bool)
     total_accuracy = 0.0
     total_final_accuracy = 0.0
 
-    for i in range(num_batches):
-        batch, log_dict = data_generator.sample()
+    for _ in range(num_batches):
+        batch, log_dict = chomsky_data_generator.sample()
         batch = np.argmax(batch, axis=-1)
         if "input_locations" in log_dict:
             input_mask = log_dict["input_locations"]
         else:
             input_mask = default_mask(batch)
+        
         conditionals = model.apply(
             params=params,
             targets=batch,
