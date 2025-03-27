@@ -1,0 +1,9 @@
+absl-py
+dm-haiku
+dm-tree
+git+https://github.com/deepmind/einshape
+jax
+numpy
+optax
+tqdm
+typing-extensions
