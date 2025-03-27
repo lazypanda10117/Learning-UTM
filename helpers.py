@@ -13,6 +13,7 @@ import jax.numpy as jnp
 
 CHOMSKY_ALPHABET_SIZE = 17
 
+
 def make_transformer_config(
     vocab_size: int,
     size: str = "large",
@@ -49,7 +50,7 @@ def utm_data_generator(
     maximum_program_length=100,
     memory_size=10,
     alphabet_size=CHOMSKY_ALPHABET_SIZE,
-    batch_size=128,
+    batch_size=32,
 ):
     program_sampler = utms_lib.FastSampler(rng=rng)
     utm = utms_lib.BrainPhoqueUTM(program_sampler, alphabet_size=alphabet_size)
@@ -67,7 +68,11 @@ def utm_data_generator(
 
 
 def make_chomsky_generator(
-    rng, task_str="even_pairs", use_delimiters=True, max_input_length=256, batch_size=128
+    rng,
+    task_str="even_pairs",
+    use_delimiters=True,
+    max_input_length=256,
+    batch_size=32,
 ):
     return chomsky_sampler_lib.ChomskyDataGenerator(
         task_str=task_str,
@@ -122,7 +127,7 @@ def evaluate_transformer_decoder(
             input_mask = log_dict["input_locations"]
         else:
             input_mask = default_mask(batch)
-        
+
         conditionals = model.apply(
             params=params,
             targets=batch,
