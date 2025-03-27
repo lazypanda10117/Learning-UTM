@@ -1,18 +1,21 @@
-from models import transformer
-from data import utm_data_generator as utm_dg_lib
-from data import utms as utms_lib
 import haiku as hk
 import functools
 import jax
+import jax.numpy as jnp
 import numpy as np
+
 from data import (
     chomsky_data_generator as chomsky_sampler_lib,
 )
-from data import data_generator as dg_lib
-import jax.numpy as jnp
+from data import utm_data_generator as utm_dg_lib
+from data import utms as utms_lib
+from models import transformer
 
 CHOMSKY_ALPHABET_SIZE = 17
 
+def save_params(params, filename):
+    flat_params, tree_def = jax.tree_util.tree_flatten(params)
+    np.savez(filename, *flat_params, tree_def=tree_def)
 
 def make_transformer_config(
     vocab_size: int,
@@ -72,7 +75,7 @@ def make_chomsky_generator(
     task_str="even_pairs",
     use_delimiters=True,
     max_input_length=256,
-    batch_size=32,
+    batch_size=40,
 ):
     return chomsky_sampler_lib.ChomskyDataGenerator(
         task_str=task_str,
@@ -80,7 +83,7 @@ def make_chomsky_generator(
         use_delimiters=use_delimiters,
         batch_size=batch_size,
         seq_length=256,
-        expand_feature_size=16,
+        expand_feature_size=CHOMSKY_ALPHABET_SIZE-2,
         rng=rng,
     )
 
@@ -105,7 +108,7 @@ def evaluate_transformer_decoder(
     chomsky_data_generator: chomsky_sampler_lib.ChomskyDataGenerator,
     params: hk.Params,
     training_data_generator: utm_dg_lib.UTMDataGenerator = None,
-    num_batches: int = 100,
+    num_batches: int = 10,
     size: str = "large",
 ) -> tuple[float, float, float]:
     """Evaluates a neural network on some synthetic data.
