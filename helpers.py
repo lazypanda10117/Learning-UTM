@@ -23,27 +23,36 @@ def make_config_generator(
     )
 
 
-def utm_data_generator(rng):
+def utm_data_generator(
+    rng,
+    maximum_steps=200,
+    seq_length=256,
+    maximum_program_length=100,
+    memory_size=10,
+    alphabet_size=9,
+):
     program_sampler = utms_lib.FastSampler(rng=rng)
-    utm = utms_lib.BrainPhoqueUTM(program_sampler)
+    utm = utms_lib.BrainPhoqueUTM(program_sampler, alphabet_size=alphabet_size)
 
     return utm_dg_lib.UTMDataGenerator(
         batch_size=32,
-        seq_length=256,
+        seq_length=seq_length,
         rng=rng,
         utm=utm,
-        memory_size=10,
-        maximum_steps=200,
+        memory_size=memory_size,
+        maximum_steps=maximum_steps,
         tokenizer=utm_dg_lib.Tokenizer.ASCII,
-        maximum_program_length=100,
+        maximum_program_length=maximum_program_length,
     )
 
 
-def make_chomsky_generator(rng):
+def make_chomsky_generator(
+    rng, task_str="even_pairs", use_delimiters=True, max_input_length=20
+):
     return chomsky_sampler_lib.ChomskyDataGenerator(
-        task_str="even_pairs",
-        max_input_length=20,
-        use_delimiters=True,
+        task_str=task_str,
+        max_input_length=max_input_length,
+        use_delimiters=use_delimiters,
         batch_size=32,
         seq_length=256,
         rng=rng,

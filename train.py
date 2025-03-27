@@ -204,6 +204,9 @@ def train_transformer_decoder(
             eval_losses.append(eval_loss)
             eval_accs.append(eval_acc)
             eval_final_accs.append(eval_final_acc)
+            print(
+                f"Step {step}, Eval acc: {eval_acc}, Eval final acc: {eval_final_acc}"
+            )
 
     return params, last_loss, eval_losses, eval_accs, eval_final_accs
 
@@ -216,12 +219,22 @@ def save_params(params, filename):
 def main(_) -> None:
     """Trains a model and save the parameters to a file."""
 
-    TRAINING_STEPS = 10000
+    TRAINING_STEPS = 1000
+    EXECUTION_STEPS = 1000
+    USE_DELIMITERS = False
+    MEMORY_SIZE = 200
+    ALPHABET_SIZE = 16
 
     rng = np.random.default_rng(seed=1)
-    data_generator = utm_data_generator(rng)
+    data_generator = utm_data_generator(
+        rng,
+        maximum_steps=EXECUTION_STEPS,
+        maximum_program_length=100,
+        memory_size=MEMORY_SIZE,
+        alphabet_size=ALPHABET_SIZE,
+    )
 
-    chomsky_generator = make_chomsky_generator(rng)
+    chomsky_generator = make_chomsky_generator(rng, use_delimiters=USE_DELIMITERS)
 
     params, loss, eval_losses, eval_accs, eval_final_accs = train_transformer_decoder(
         data_generator=data_generator,
@@ -232,7 +245,7 @@ def main(_) -> None:
     )
     logging.info("Final loss: %f", loss)
 
-    save_params(params, f"params_{SUFFIX}.npz")
+    save_params(params, f"params_{SUFFIX}_{EXECUTION_STEPS}_steps.npz")
 
     logging.info("Parameters saved in file params.npz")
 
@@ -246,7 +259,7 @@ def main(_) -> None:
 
     # Save the DataFrame to a CSV file
 
-    eval_df.to_csv(f"evaluation_metrics{SUFFIX}.csv", index=False)
+    eval_df.to_csv(f"metrix_{SUFFIX}_{EXECUTION_STEPS}_steps.csv", index=False)
 
     logging.info("Evaluation metrics saved to evaluation_metrics.csv")
 

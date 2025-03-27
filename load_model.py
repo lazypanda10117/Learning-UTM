@@ -27,7 +27,7 @@ def make_config_generator(
 
 def load_model_params(
     data_generator, params_path: str, vocab_size: int, batch_size: int = 128
-) -> tuple[hk.Transformed, hk.Params]:
+) -> hk.Params:
     """Loads saved model parameters and returns the initialized model and params.
 
     Args:
@@ -54,17 +54,19 @@ def load_model_params(
     rng = jax.random.PRNGKey(0)
     model.init(rng, dummy_batch)
 
-    return model, loaded_params
+    return loaded_params
 
 
 def main():
     # Example usage
     rng = np.random.default_rng(seed=1)
     data_generator = utm_data_generator(rng)
-    chomsky_generator = make_chomsky_generator(rng)
+    chomsky_generator = make_chomsky_generator(
+        rng, use_delimiters=False, max_input_length=20
+    )
 
     # Load the model and parameters
-    model, params = load_model_params(
+    params = load_model_params(
         data_generator, "params.npz", data_generator.feature_size
     )
 
