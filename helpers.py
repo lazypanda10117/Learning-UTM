@@ -13,9 +13,11 @@ from models import transformer
 
 CHOMSKY_ALPHABET_SIZE = 17
 
+
 def save_params(params, filename):
     flat_params, tree_def = jax.tree_util.tree_flatten(params)
     np.savez(filename, *flat_params, tree_def=tree_def)
+
 
 def make_transformer_config(
     vocab_size: int,
@@ -74,16 +76,20 @@ def make_chomsky_generator(
     rng,
     task_str="even_pairs",
     use_delimiters=True,
-    max_input_length=256,
+    max_input_length=None,
     batch_size=40,
 ):
+
+    if max_input_length is None:
+        max_input_length = 32 if task_str == "compute_sqrt" else 256
+
     return chomsky_sampler_lib.ChomskyDataGenerator(
         task_str=task_str,
         max_input_length=max_input_length,
         use_delimiters=use_delimiters,
         batch_size=batch_size,
         seq_length=256,
-        expand_feature_size=CHOMSKY_ALPHABET_SIZE-2,
+        expand_feature_size=CHOMSKY_ALPHABET_SIZE - 2,
         rng=rng,
     )
 
