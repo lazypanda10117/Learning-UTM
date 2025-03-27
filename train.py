@@ -42,7 +42,7 @@ from helpers import (
 
 import matplotlib.pyplot as plt
 
-USE_MARKOV = False
+USE_MARKOV = True
 SUFFIX = "_markov" if USE_MARKOV else "_original"
 
 
@@ -208,10 +208,15 @@ def train_transformer_decoder(
     return params, last_loss, eval_losses, eval_accs, eval_final_accs
 
 
+def save_params(params, filename):
+    flat_params, tree_def = jax.tree_util.tree_flatten(params)
+    np.savez(filename, *flat_params, tree_def=tree_def)
+
+
 def main(_) -> None:
     """Trains a model and save the parameters to a file."""
 
-    TRAINING_STEPS = 10
+    TRAINING_STEPS = 10000
 
     rng = np.random.default_rng(seed=1)
     data_generator = utm_data_generator(rng)
@@ -227,8 +232,7 @@ def main(_) -> None:
     )
     logging.info("Final loss: %f", loss)
 
-    flat_params, tree_def = jax.tree_util.tree_flatten(params)
-    np.savez(f"params{SUFFIX}.npz", *flat_params, tree_def=tree_def)
+    save_params(params, f"params_{SUFFIX}.npz")
 
     logging.info("Parameters saved in file params.npz")
 
